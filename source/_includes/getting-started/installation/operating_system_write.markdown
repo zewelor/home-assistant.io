@@ -1,4 +1,3 @@
-
 ### Write the image to your installation media
 
 1. Attach the installation media ({{installation_media}}) to your computer

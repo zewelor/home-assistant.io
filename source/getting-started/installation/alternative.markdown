@@ -11,3 +11,4 @@ Included sections for this page is located under source/_includes/getting-starte
 {% include getting-started/installation/container.markdown %}
 {% include getting-started/installation/pip.markdown %}
 {% include getting-started/installation/supervised.markdown %}
+{% include getting-started/installation/compare_installations.html os=true container=true core=true supervised=true %}

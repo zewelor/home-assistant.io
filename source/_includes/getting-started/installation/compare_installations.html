@@ -1,0 +1,80 @@
+<style>
+#compare-installations div.ledger {
+    white-space: break-spaces;
+    font-size: 0.8em;
+}
+
+#compare-installations div.installation {
+    margin-bottom: 16px;
+}
+
+#compare-installations div.installation div.capabilities {
+    margin-left: 24px;
+    font-size: 0.8em;
+}
+</style>
+
+## Compare Installation Methods
+
+<div id="compare-installations">
+
+{% if include.os %}
+<div class="installation">
+<b>Home Assistant Operating System</b>
+<div class="capabilities">
+✅ Core
+✅ Supervisor
+✅ Add-ons
+✅ Snapshots
+✅ Managed host
+</div>
+</div>
+{% endif %}
+
+{% if include.container %}
+<div class="installation">
+<b>Home Assistant Container</b>
+<div class="capabilities">
+✅ Core
+❌ Supervisor
+❌ Add-ons
+❌ Snapshots
+❌ Managed host
+</div>
+</div>
+{% endif %}
+
+{% if include.core %}
+<div class="installation">
+<b>Home Assistant Core</b>
+<div class="capabilities">
+✅ Core
+❌ Supervisor
+❌ Add-ons
+❌ Snapshots
+❌ Managed host
+</div>
+</div>
+{% endif %}
+
+{% if include.supervised %}
+<div class="installation">
+<b>Home Assistant Supervised</b>
+<div class="capabilities">
+✅ Core
+✅ Supervisor
+✅ Add-ons
+✅ Snapshots
+❌ Managed host
+</div>
+</div>
+{% endif %}
+
+<div class="ledger">
+<b>Core</b>: The core of Home Assistant
+<b>Supervisor</b>: Manager for your Home Assistant installation
+<b>Add-ons</b>: Pre packaged software with a single click-install
+<b>Snapshots</b>: Built-in backup and restore functionality
+<b>Managed host</b>: Lorem ipsum
+</div>
+</div>
