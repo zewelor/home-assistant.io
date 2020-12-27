@@ -24,12 +24,13 @@ Installation with Docker is straightforward. Adjust the following command so tha
   {% include getting-started/installation/container/installation.markdown %}
 {% endif %}
 
-### Restart
+### Restart Home Assistant
 
-If you change the configuration you have to restart the server. To do that you have 2 options.
+If you change the configuration you have to restart the server. To do that you have 3 options.
 
- 1. You can go to the **Developer Tools** -> **Services**, select the service `homeassistant.restart` and click "Call Service".
- 2. Or you can restart it from a terminal by running `docker restart homeassistant`
+1. In your Home Assistant UI go to the **Configuration** panel -> **Server management** and click the "Restart" button.
+2. You can go to the **Developer Tools** -> **Services**, select the service `homeassistant.restart` and click "Call Service".
+3. Restart it from a terminal by running `docker restart homeassistant`.
 
 ### Docker Compose
 
@@ -76,9 +77,32 @@ As the Docker command becomes more complex, switching to `docker-compose` can be
 
 ### Exposing Devices
 
-In order to use Z-Wave, Zigbee or other integrations that require access to devices, you need to map the appropriate device into the container. Ensure the user that is running the container has the correct privileges to access the `/dev/tty*` file, then add the device mapping to your Docker instructions:
+In order to use Z-Wave, Zigbee or other integrations that require access to devices, you need to map the appropriate device into the container. Ensure the user that is running the container has the correct privileges to access the `/dev/tty*` file, then add the device mapping to your container instructions:
 
-{% include getting-started/installation/container/expose_devices.markdown %}
+{% tabbed_block %}
+
+- title: Docker CLI
+  content: |
+
+    ```bash
+    docker run ... --device /dev/ttyUSB0:/dev/ttyUSB0 ...
+    ```
+
+- title: Docker Compose
+  content: |
+
+    ```yaml
+      version: '3'
+      services:
+        homeassistant:
+          ...
+          devices:
+            - /dev/ttyUSB0:/dev/ttyUSB0
+            - /dev/ttyUSB1:/dev/ttyUSB1
+            - /dev/ttyACM0:/dev/ttyACM0
+    ```
+
+{% endtabbed_block %}
 
 ### Optimizations
 
@@ -105,7 +129,6 @@ As jemalloc can cause issues on certain hardware, it can be disabled by passing 
       ...
       environment:
         DISABLE_JEMALLOC: true
-      ...
     ```
 
 {% endtabbed_block %}
