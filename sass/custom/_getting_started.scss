@@ -69,48 +69,6 @@
             }
         }
     }
-    .board-grid {
-        display: flex;
-        flex-flow: wrap;
-        place-content: center;
-
-        .link-card {
-            margin: 0 8px;
-
-            .material-card {
-                padding: 24px 0 0;
-                margin: 8px 0;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                height: 150px;
-                width: 150px;
-
-                svg, img {
-                    height: 67px;
-                    width: 67px;
-                    max-width: 67px;
-                }
-
-                img {
-                    height: 82px;
-                    width: 82px;
-                    max-width: 82px;
-                    border-radius: 0;
-                    box-shadow: none;
-                    border: 0;
-                }
-
-                p {
-                    font-size: initial;
-                    margin: 0 8px 16px;
-                    text-align: center;
-                    line-height: 16px;
-                }
-            }
-        }
-    }
 }
 
 .link-card {
@@ -138,3 +96,28 @@
     }
 }
 
+@media only screen and (max-width: $palm-end) {
+    #getting_started {
+        .installations {
+            .installations-card {
+                .material-card {
+                    .content-container {
+                        flex-flow: wrap;
+                        svg {
+                            display: block;
+                        }
+                        div:first-of-type {
+                            width: 100%;
+                            display: flex;
+                            justify-content: center;
+                            margin-bottom: 16px;
+                        }
+                    }
+                    svg {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
