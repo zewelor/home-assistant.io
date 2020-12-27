@@ -3,7 +3,7 @@
 {% assign container_image = "homeassistant/home-assistant:stable" %}
 
 {% if page.installation_type != 'alternative' %}
-These below instructions are for an installation of Home Assistant Container running in your own container environment, which you manage yourself. Any [OCI](https://opencontainers.org/) compatible system can be used, however this guide will focus on installing it with Docker.
+These below instructions are for an installation of Home Assistant Container running in your own container environment, which you manage yourself. Any [OCI](https://opencontainers.org/) compatible runtime can be used, however this guide will focus on installing it with Docker.
 
 <div class='note'>
 <b>Prerequisites</b>
