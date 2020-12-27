@@ -1,6 +1,6 @@
 ## Install Home Assistant Operating System
 
-{% assign haos_version = "5.8" %}
+{% assign haos_version = "5.9" %}
 {% assign haos_release_base_url = "https://github.com/home-assistant/operating-system/releases/download" %}
 
 {% if page.installation_type == 'odroid' %}
