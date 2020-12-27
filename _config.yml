@@ -132,7 +132,7 @@ defaults:
       footer: true
       sharing: true
       sidebar: true
-  # Enable table of contents for integrations
+  # Enable table of contents for integrations and installations
   #
   # To set toc as a default value, we need to set the scope with an empty path
   # and the collection as type
@@ -143,6 +143,11 @@ defaults:
       type: integrations
     values:
       toc: true
+  - scope:
+      path: "getting-started/installation/*"
+    values:
+      toc: true
+
 
 # Support for files Jekyll will normally exclude
 include:

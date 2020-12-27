@@ -1,0 +1,135 @@
+#getting_started {
+    .intro {
+        padding-bottom: 16px;
+    }
+
+    .installations {
+
+        .installations-card {
+            text-decoration: none !important;
+            color: black !important;
+
+            .material-card {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin: 8px 0;
+
+                .content-container {
+                    display: flex;
+
+                    div:first-of-type {
+                        margin-right: 24px;
+
+                        img, svg {
+                            max-width: 170px;
+                            max-height: 170px;
+                            min-width: 170px;
+                            min-height: 170px;
+                            padding: 32px;
+                            border-radius: 3px;
+                            box-shadow: rgba(0,0,0,0.06) 0 0 10px;
+                            vertical-align: middle;
+                            border: 5px solid #fff;
+                        }
+                    }
+
+                    div:last-of-type {
+
+                        b {
+                            font-size: 28px;
+                        }
+
+                        p {
+                            font-size: 0.8em;
+                            margin: 0;
+                        }
+
+                        ul {
+                            font-size: 0.8em;
+                            margin-left: 24px;
+
+                            li {
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
+                svg {
+                    height: 67px;
+                    width: 67px;
+                    max-width: 67px;
+                    align-self: center;
+                }
+            }
+        }
+    }
+    .board-grid {
+        display: flex;
+        flex-flow: wrap;
+        place-content: center;
+
+        .link-card {
+            margin: 0 8px;
+
+            .material-card {
+                padding: 24px 0 0;
+                margin: 8px 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                height: 150px;
+                width: 150px;
+
+                svg, img {
+                    height: 67px;
+                    width: 67px;
+                    max-width: 67px;
+                }
+
+                img {
+                    height: 82px;
+                    width: 82px;
+                    max-width: 82px;
+                    border-radius: 0;
+                    box-shadow: none;
+                    border: 0;
+                }
+
+                p {
+                    font-size: initial;
+                    margin: 0 8px 16px;
+                    text-align: center;
+                    line-height: 16px;
+                }
+            }
+        }
+    }
+}
+
+.link-card {
+    text-decoration: none !important;
+    color: black !important;
+    div {
+        margin: 32px 0;
+        height: 64px;
+        display: flex;
+        justify-content: space-between;
+        svg {
+            height: 32px;
+            width: 32px;
+            max-width: 32px;
+        }
+        p {
+            margin: 0;
+            align-self: center;
+        }
+    }
+}
+.next-step {
+    p {
+        text-transform: uppercase;
+    }
+}
+
