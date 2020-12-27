@@ -26,25 +26,6 @@ Installation with Docker is straightforward. Adjust the following command so tha
   {% assign container_image = "homeassistant/raspberrypi4-homeassistant:stable" %}
   {% include getting-started/installation/container_install.markdown %}
 
-{% elsif page.installation_type == 'macos' %}
-When using `docker-ce` (or `boot2docker`) on macOS, you are unable to map the local timezone to your Docker container ([Docker issue](https://github.com/docker/for-mac/issues/44)). Instead of `-v /etc/localtime:/etc/localtime:ro`, just pass in the timezone environment variable when you launch the container, e.g, `-e "TZ=America/Los_Angeles"`. Replace "America/Los_Angeles" with [your timezone](http://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
-
-{% include getting-started/installation/container_install.markdown %}
-
-Alternatively, `docker-compose` works with any recent release of Docker CE on macOS. Note the `/dev/tty*` device name used by your Arduino etc. devices will differ from the Linux example, so the compose `mount:` may require updates.
-{% elsif page.installation_type == 'windows' %}
-Docker containers are completely isolated from its Windows host system. So when you delete a container, all the changes you made to that container are also removed. If you want to have configuration files or other assets remain persistent, try mounting Windows folders on containers.
-
-Before proceeding, make sure you have shared out a drive for Docker to mount to. This will allow the saving of configuration files to persist on the local machine rather than in the Docker container (which may be destroyed when upgraded).
-
-<https://docs.docker.com/docker-for-windows/#shared-drives>
-<https://docs.docker.com/docker-for-windows/troubleshoot/#verify-domain-user-has-permissions-for-shared-drives-volumes>
-
-It’s easier to understand the trick when put into practice. Here we would like to mount a current working directory (something like `C:\Users\<your login name>\homeassistant` make sure this exists first) into the `homeassistant/home-assistant:stable` image at the `/config` location in the container. We would do that as so:
-
-{% include getting-started/installation/container_install.markdown %}
-
-Host networking is not supported on Windows so we have to forward the port 8123. This will let you access your Home Assistant portal from `http://localhost:8123`, and if you forward port 8123 on your router to your machine IP, the traffic will be forwarded on through to the Docker container.
 {% elsif page.installation_type == 'alternative' %}
 ### Synology NAS
 

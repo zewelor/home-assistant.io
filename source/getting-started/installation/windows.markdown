@@ -8,6 +8,5 @@ Included sections for this page is located under source/_includes/getting-starte
 {% endcomment %}
 
 {% include getting-started/installation/operating_system.markdown %}
-{% include getting-started/installation/container.markdown %}
 {% include getting-started/installation/pip.markdown %}
-{% include getting-started/installation/compare_installations.html os=true container=true core=true %}
+{% include getting-started/installation/compare_installations.html os=true core=true %}
