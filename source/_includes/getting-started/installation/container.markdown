@@ -2,6 +2,7 @@
 
 {% assign container_image = "homeassistant/home-assistant:stable" %}
 
+{% if page.installation_type != 'alternative' %}
 These below instructions are for an installation of Home Assistant Container running in your own container environment, which you manage yourself. Any [OCI](https://opencontainers.org/) compatible system can be used, however this guide will focus on installing it with Docker.
 
 <div class='note'>
@@ -13,6 +14,7 @@ This guide assumes that you already have an operating system setup and a contain
 ### Platform Installation
 
 Installation with Docker is straightforward. Adjust the following command so that `/PATH_TO_YOUR_CONFIG` points at the folder where you want to store your configuration and run it.
+{% endif %}
 
 {% if page.installation_type == 'raspberrypi' %}
   {% include getting-started/installation/container/raspberrypi.markdown %}
