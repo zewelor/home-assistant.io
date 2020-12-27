@@ -80,19 +80,35 @@ In order to use Z-Wave, Zigbee or other integrations that require access to devi
 
 {% include getting-started/installation/container/expose_devices.markdown %}
 
-{% if page.installation_type == 'macos' %}
-<div class='note'>
-
-On Mac, USB devices are [not passed through](https://github.com/docker/for-mac/issues/900) by default. Follow the instructions in [Using USB with Docker for Mac](https://dev.to/rubberduck/using-usb-with-docker-for-mac-3fdd) by Christopher McClellan if your device is not showing up.
-
-</div>
-{% endif %}
-
 ### Optimizations
 
 The Home Assistant Container is using an alternative memory allocation library [jemalloc](http://jemalloc.net/) for better memory management and Python runtime speedup.
 
-As jemalloc can cause issues on certain hardware, it can be disabled by passing the environment variable `DISABLE_JEMALLOC` with any value, for example: `-e "DISABLE_JEMALLOC=true"`.
+As jemalloc can cause issues on certain hardware, it can be disabled by passing the environment variable `DISABLE_JEMALLOC` with any value, for example:
+
+{% tabbed_block %}
+
+- title: Docker CLI
+  content: |
+
+    ```bash
+    docker run ... -e "DISABLE_JEMALLOC=true" ...
+    ```
+
+- title: Docker Compose
+  content: |
+
+    ```yaml
+    version: '3'
+    services:
+      homeassistant:
+      ...
+      environment:
+        DISABLE_JEMALLOC: true
+      ...
+    ```
+
+{% endtabbed_block %}
 
 The error message `<jemalloc>: Unsupported system page size` is one known indicator.
 
