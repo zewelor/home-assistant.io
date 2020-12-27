@@ -15,7 +15,8 @@
 
     ```{{ docker_install_highlight }}
     docker run --init -d \
-      --name="home-assistant" \
+      --name homeassistant \
+      --restart=unless-stopped \
       -v /etc/localtime:/etc/localtime:ro \
       -v {{ docker_install_local_path }}:/config \
       {{ network }} \
@@ -26,23 +27,29 @@
   content: |
 
     ```{{ docker_install_highlight }}
-    docker pull {{ container_image }}  # if this returns "Image is up to date" then you can stop here
-    docker stop home-assistant  # stop the running container
-    docker rm home-assistant  # remove it from Docker's list of containers
-    docker run --init -d \
-      --name="home-assistant" \
-      -e "TZ=America/New_York" \
-      -v {{ docker_install_local_path }}:/config \
-      {{ network }} \
-      {{ container_image }} # finally, start a new one
+    # if this returns "Image is up to date" then you can stop here
+    docker pull {{ container_image }}
     ```
 
-- title: Remove
-  content: |
+    ```{{ docker_install_highlight }}
+    # stop the running container
+    docker stop homeassistant
+    ```
 
     ```{{ docker_install_highlight }}
-    docker stop home-assistant  # stop the running container
-    docker rm home-assistant  # remove it from Docker's list of containers
+    # remove it from Docker's list of containers
+    docker rm homeassistant
+    ```
+
+    ```{{ docker_install_highlight }}
+    # finally, start a new one
+    docker run --init -d \
+      --name homeassistant \
+      --restart=unless-stopped \
+      -v {{ docker_install_local_path }}:/config \
+      -v /etc/localtime:/etc/localtime:ro \
+      {{ network }} \
+      {{ container_image }}
     ```
 
 {% endtabbed_block %}

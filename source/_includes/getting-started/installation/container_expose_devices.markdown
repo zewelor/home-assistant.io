@@ -15,7 +15,8 @@
 
     ```{{ docker_expose_device_highlight }}
     docker run --init -d \
-      --name="home-assistant" \
+      --name homeassistant \
+      --restart=unless-stopped \
       -v /etc/localtime:/etc/localtime:ro \
       -v {{ docker_expose_device_local_path }}:/config \
       --device /dev/ttyUSB0:/dev/ttyUSB0 \
@@ -30,7 +31,7 @@
       version: '3'
       services:
         homeassistant:
-          container_name: home-assistant
+          container_name: homeassistant
           image: homeassistant/home-assistant:stable
           volumes:
             - /PATH_TO_YOUR_CONFIG:/config
@@ -39,7 +40,7 @@
             - /dev/ttyUSB0:/dev/ttyUSB0
             - /dev/ttyUSB1:/dev/ttyUSB1
             - /dev/ttyACM0:/dev/ttyACM0
-          restart: always
+          restart: unless-stopped
           network_mode: host
     ```
 

@@ -2,11 +2,12 @@
 
 {% assign container_image = "homeassistant/home-assistant:stable" %}
 
-These below instructions are for an installation of Home Assistant Core running in your own Docker environment, which you manage yourself.
+These below instructions are for an installation of Home Assistant Container running in your own container environment, which you manage yourself. Any [OCI](https://opencontainers.org/) compatible system can be used, however this guide will focus on installing it with Docker.
 
-<div class='note warning'>
+<div class='note'>
+<b>Prerequisites</b>
 
-Note that Docker command line option `--net=host` or the compose file equivalent `network_mode: host` must be used to put Home Assistant on the host's network, otherwise certain functionality - including mDNS and UPnP - will break. 
+This guide assumes that you already have an operating system setup and a container runtime installed (like Docker).
 </div>
 
 ### Platform Installation
@@ -181,39 +182,17 @@ That will tell Home Assistant where to look for our Z-Wave radio.
 device_tracker:
   - platform: bluetooth_tracker
 ```
+
 {% else %}
   {% include getting-started/installation/container_install.markdown %}
 {% endif %}
-
-### Autostart using Docker
-
-<div class='note warning'>
-
-Do not try to combine Docker `restart` policies with host-level process managers (such as `systemd`), because this creates conflicts.
-
-</div>
-
-Add `--restart=always` to your `docker run` command before homeassistant/home-assistant:stable. See [the Docker autostart documentation](https://docs.docker.com/config/containers/start-containers-automatically/) for details and more options.
-
-
-You need to replace `/PATH_TO_YOUR_CONFIG` with your path to the configuration. For example, if you choose your configuration path to be `/home/pi/homeassistant`, the command for **Raspberry Pi 3** would be:
-
-```bash
-docker run --init -d \
---name="home-assistant" \
--v /etc/localtime:/etc/localtime:ro \
--v /home/pi/homeassistant:/config \
---net=host \
-homeassistant/raspberrypi3-homeassistant:stable
-```
-
 
 ### Restart
 
 If you change the configuration you have to restart the server. To do that you have 2 options.
 
  1. You can go to the **Developer Tools** -> **Services**, select the service `homeassistant.restart` and click "Call Service".
- 2. Or you can restart it from a terminal by running `docker restart home-assistant`
+ 2. Or you can restart it from a terminal by running `docker restart homeassistant`
 
 ### Docker Compose
 
@@ -223,12 +202,12 @@ As the Docker command becomes more complex, switching to `docker-compose` can be
   version: '3'
   services:
     homeassistant:
-      container_name: home-assistant
+      container_name: homeassistant
       image: homeassistant/home-assistant:stable
       volumes:
         - /PATH_TO_YOUR_CONFIG:/config
         - /etc/localtime:/etc/localtime:ro
-      restart: always
+      restart: unless-stopped
       network_mode: host
 ```
 
