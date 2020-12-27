@@ -1,7 +1,5 @@
 ## Install Home Assistant Container
 
-{% assign container_image = "homeassistant/home-assistant:stable" %}
-
 {% if page.installation_type != 'alternative' %}
 These below instructions are for an installation of Home Assistant Container running in your own container environment, which you manage yourself. Any [OCI](https://opencontainers.org/) compatible runtime can be used, however this guide will focus on installing it with Docker.
 
@@ -17,11 +15,11 @@ Installation with Docker is straightforward. Adjust the following command so tha
 {% endif %}
 
 {% if page.installation_type == 'raspberrypi' %}
-  {% include getting-started/installation/container/raspberrypi.markdown %}
+  {% include getting-started/installation/container/raspberrypi_cli.markdown %}
 {% elsif page.installation_type == 'alternative' %}
   {% include getting-started/installation/container/alternative.markdown %}
 {% else %}
-  {% include getting-started/installation/container/installation.markdown %}
+  {% include getting-started/installation/container/cli.markdown image="homeassistant/home-assistant:stable" %}
 {% endif %}
 
 ### Restart Home Assistant
@@ -36,18 +34,12 @@ If you change the configuration you have to restart the server. To do that you h
 
 As the Docker command becomes more complex, switching to `docker-compose` can be preferable and support automatically restarting on failure or system restart. Create a `docker-compose.yml` file:
 
-```yaml
-  version: '3'
-  services:
-    homeassistant:
-      container_name: homeassistant
-      image: homeassistant/home-assistant:stable
-      volumes:
-        - /PATH_TO_YOUR_CONFIG:/config
-        - /etc/localtime:/etc/localtime:ro
-      restart: unless-stopped
-      network_mode: host
-```
+{% if page.installation_type == 'raspberrypi' %}
+  {% include getting-started/installation/container/raspberrypi_compose.markdown %}
+{% else %}
+  {% include getting-started/installation/container/compose.markdown image="homeassistant/home-assistant:stable" %}
+{% endif %}
+
 
 {% tabbed_block %}
 
