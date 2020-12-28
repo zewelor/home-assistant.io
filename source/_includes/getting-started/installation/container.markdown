@@ -28,7 +28,25 @@ If you change the configuration you have to restart the server. To do that you h
 
 1. In your Home Assistant UI go to the **Configuration** panel -> **Server management** and click the "Restart" button.
 2. You can go to the **Developer Tools** -> **Services**, select the service `homeassistant.restart` and click "Call Service".
-3. Restart it from a terminal by running `docker restart homeassistant`.
+3. Restart it from a terminal.
+
+{% tabbed_block %}
+
+- title: Docker CLI
+  content: |
+
+    ```bash
+    docker restart homeassistant
+    ```
+
+- title: Docker Compose
+  content: |
+
+    ```bash
+    docker-compose restart
+    ```
+
+{% endtabbed_block %}
 
 ### Docker Compose
 
@@ -40,32 +58,11 @@ As the Docker command becomes more complex, switching to `docker-compose` can be
   {% include getting-started/installation/container/compose.markdown image="homeassistant/home-assistant:stable" %}
 {% endif %}
 
+Start it by running:
 
-{% tabbed_block %}
-
-- title: Start
-  content: |
-
-    ```bash
-    docker-compose up -d
-    ```
-
-- title: Restart
-  content: |
-
-    ```bash
-    docker-compose restart
-    ```
-
-- title: Update
-  content: |
-
-    ```bash
-    docker-compose pull
-    docker-compose up -d --build homeassistant
-    ```
-
-{% endtabbed_block %}
+```bash
+docker-compose up -d
+```
 
 ### Exposing Devices
 
@@ -84,14 +81,12 @@ In order to use Z-Wave, Zigbee or other integrations that require access to devi
   content: |
 
     ```yaml
-      version: '3'
-      services:
-        homeassistant:
-          ...
-          devices:
-            - /dev/ttyUSB0:/dev/ttyUSB0
-            - /dev/ttyUSB1:/dev/ttyUSB1
-            - /dev/ttyACM0:/dev/ttyACM0
+    version: '3'
+    services:
+      homeassistant:
+        ...
+        devices:
+          - /dev/ttyUSB0:/dev/ttyUSB0
     ```
 
 {% endtabbed_block %}
