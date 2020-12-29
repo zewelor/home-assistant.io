@@ -155,12 +155,15 @@ _Select and copy the URL or use the "copy" button that appear when you hover it.
 {% if page.installation_type == 'nuc' %}
 - [Intel NUC][intel-nuc]
 {% else %}
-
 - [VirtualBox][vdi] (.vdi)
+{% if page.installation_type == 'macos' %}
 - [KVM][qcow2] (.qcow2)
+{% endif %}
 {% if page.installation_type == 'windows' or page.installation_type == 'linux' %}
+- [KVM][qcow2] (.qcow2)
 - [Vmware Workstation][vmdk] (.vmdk)
 {% elsif page.installation_type == 'alternative' %}
+- [KVM/Proxmox][qcow2] (.qcow2)
 - [VMware ESXi/vSphere][Virtual Appliance] (.ova)
 {% elsif page.installation_type == 'windows' %}
 - [Hyper-V][vhdx] (.vhdx)
