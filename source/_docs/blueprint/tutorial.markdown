@@ -218,7 +218,7 @@ Don't forget to reload automations after you make changes to your blueprint to h
 
 ## Share the love
 
-The final step is to share this blueprint with others.
+The final step is to share this blueprint with others. For this tutorial we're going to share it on GitHub Gists.
 
 ### Informal Sharing
 
