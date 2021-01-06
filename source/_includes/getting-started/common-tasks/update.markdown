@@ -35,7 +35,7 @@ ha core update
 {% elsif page.installation == "container" %}
 
 ```bash
-ha os upgrade --version {{current_version}}
+ha os update --version {{current_version}}
 ```
 
 {% elsif page.installation == "core" %}

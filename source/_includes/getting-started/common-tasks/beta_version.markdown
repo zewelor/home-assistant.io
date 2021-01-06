@@ -43,7 +43,7 @@ If you would like to test next release before anyone else, you can install the b
 {% elsif page.installation == "container" %}
 
 ```bash
-ha os upgrade --version {{current_version}}
+ha os update --version {{current_version}}
 ```
 
 {% elsif page.installation == "core" %}
