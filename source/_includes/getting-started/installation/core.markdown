@@ -1,11 +1,9 @@
 ## Install Home Assistant Core
 
-This installation of Home Assistant Core requires the Raspberry Pi to run [Raspberry Pi OS Lite](https://www.raspberrypi.org/downloads/raspberry-pi-os/). The installation will be installed in a [Virtual Environment](/docs/installation/virtualenv) with minimal overhead. Instructions assume this is a new installation of Raspberry Pi OS Lite.
-
 <div class='note'>
 <b>Prerequisites</b>
 
-This guide assumes that you already have an operating system setup and have installed Python 3.8 (including the package `python3-dev`) or newer.
+This guide assumes that you already have an operating system setup and have installed Python {{site.installation.versions.python}} (including the package `python3-dev`) or newer.
 </div>
 
 {% if page.installation_type == "raspberrypi" %}
@@ -17,45 +15,47 @@ Please remember to ensure you're using an [appropriate power supply](https://www
 
 {% endif %}
 
-Connect to the Raspberry Pi over SSH. Default password is `raspberry`.
-You will need to enable SSH access. The Raspberry Pi website has instructions [here](https://www.raspberrypi.org/documentation/remote-access/ssh/).
+### Install dependencies
 
-```bash
-ssh pi@ipaddress
-```
-
-Changing the default password is encouraged.
-
-```bash
-passwd
-```
-
-Update the system.
+Before you start make sure your system is fully updated, all packages in this guide are installed with `apt`, if your OS does not have that, look for alternatives.
 
 ```bash
 sudo apt-get update
 sudo apt-get upgrade -y
 ```
 
-Install the dependencies.
+Install the dependencies:
 
 ```bash
-sudo apt-get install python3 python3-dev python3-venv python3-pip libffi-dev libssl-dev libjpeg-dev zlib1g-dev autoconf build-essential libopenjp2-7 libtiff5
+sudo apt-get install -y python3 python3-dev python3-venv python3-pip libffi-dev libssl-dev libjpeg-dev zlib1g-dev autoconf build-essential libopenjp2-7 libtiff5
 ```
 
+### Create an account
+
 Add an account for Home Assistant Core called `homeassistant`.
-Since this account is only for running Home Assistant Core the extra arguments of `-rm` is added to create a system account and create a home directory. The arguments `-G dialout,gpio,i2c` adds the user to the `dialout`, `gpio` and the `i2c` group. The first is required for using Z-Wave and Zigbee controllers, while the second is required to communicate with Raspberry's GPIO.
+Since this account is only for running Home Assistant Core the extra arguments of `-rm` is added to create a system account and create a home directory.
+{%- if site.installation.types[page.installation_type].board %}
+The arguments `-G dialout,gpio,i2c` adds the user to the `dialout`, `gpio` and the `i2c` group. The first is required for using Z-Wave and Zigbee controllers, while the second is required to communicate with GPIO.
 
 ```bash
 sudo useradd -rm homeassistant -G dialout,gpio,i2c
 ```
 
-Next we will create a directory for the installation of Home Assistant Core and change the owner to the `homeassistant` account.
+{% else %}
 
 ```bash
-cd /srv
-sudo mkdir homeassistant
-sudo chown homeassistant:homeassistant homeassistant
+sudo useradd -rm homeassistant
+```
+
+{% endif %}
+
+### Create the virtual environment
+
+First we will create a directory for the installation of Home Assistant Core and change the owner to the `homeassistant` account.
+
+```bash
+sudo mkdir /srv/homeassistant
+sudo chown homeassistant:homeassistant /srv/homeassistant
 ```
 
 Next up is to create and change to a virtual environment for Home Assistant Core. This will be done as the `homeassistant` account.
@@ -63,7 +63,7 @@ Next up is to create and change to a virtual environment for Home Assistant Core
 ```bash
 sudo -u homeassistant -H -s
 cd /srv/homeassistant
-python3.8 -m venv .
+python{{site.installation.versions.python}} -m venv .
 source bin/activate
 ```
 
@@ -112,7 +112,7 @@ In the event that a Home Assistant Core version doesn't play well with your hard
 ```bash
 sudo -u homeassistant -H -s
 source /srv/homeassistant/bin/activate
-pip3 install homeassistant==0.XX.X
+pip3 install homeassistant=={{site.current_major_version}}.{{site.current_minor_version}}.{{site.current_patch_version}}
 ```
 
 ### Run the beta version
@@ -138,7 +138,7 @@ For example:
 ```bash
 sudo -u homeassistant -H -s
 source /srv/homeassistant/bin/activate
-pip3 install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev
+pip3 install --upgrade git+git://github.com/home-assistant/core.git@dev
 ```
 
 ### Activating the virtual environment

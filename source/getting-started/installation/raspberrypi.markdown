@@ -10,6 +10,6 @@ Included sections for this page is located under source/_includes/getting-starte
 {% assign board = "Raspberry Pi" %}
 {% assign installation_media = "SD card" %}
 
-{% include getting-started/installation/operating_system.markdown %}
-{% include getting-started/installation/container.markdown %}
+<!--{% include getting-started/installation/operating_system.markdown %}
+{% include getting-started/installation/container.markdown %}-->
 {% include getting-started/installation/core.markdown %}
