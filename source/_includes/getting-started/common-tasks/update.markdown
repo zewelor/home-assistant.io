@@ -5,14 +5,14 @@
 Best practice for updating a Home Assistant installation:
 
 1. Backup your installation, using the snapshot functionality Home Assistant offers.
-2. Check the release notes for breaking changes on [Home Assistant release notes](https://github.com/home-assistant/home-assistant/releases). Be sure to check all release notes between the version you are running and the one you are upgrading to. Use the search function in your browser (`CTRL + f`) and search for **Breaking Changes**.
+2. Check the release notes for breaking changes on [Home Assistant release notes](https://github.com/home-assistant/home-assistant/releases). Be sure to check all release notes between the version you are running and the one you are upgrading to. Use the search function in your browser (`CTRL + f` / `CMD + f`) and search for **Breaking Changes**.
 3. Check your configuration using the [Check Home Assistant configuration](/addons/check_config/) add-on.
 4. If the check passes, you can safely update. If not, update your configuration accordingly.
 5. Update Home Assistant.
 
 {% else %}
 
-Check the release notes for breaking changes on [Home Assistant release notes](https://github.com/home-assistant/home-assistant/releases). Be sure to check all release notes between the version you are running and the one you are upgrading to. Use the search function in your browser (`CTRL + f`) and search for **Breaking Changes**.
+Check the release notes for breaking changes on [Home Assistant release notes](/latest-release-notes/). Be sure to check all release notes between the version you are running and the one you are upgrading to. Use the search function in your browser (`CTRL + f` / `CMD + f`) and search for **Breaking Changes**.
 
 {% endif %}
 
