@@ -7,6 +7,9 @@ installation_type: tinkerboard
 Included sections for this page is located under source/_includes/getting-started/installation
 {% endcomment %}
 
+{% assign board = "ASUS Tinkerboard" %}
+{% assign installation_media = "eMMC module/SD card" %}
+
 {% include getting-started/installation/operating_system.markdown %}
 {% include getting-started/installation/container.markdown %}
 {% include getting-started/installation/core.markdown %}

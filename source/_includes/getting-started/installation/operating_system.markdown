@@ -1,22 +1,10 @@
 ## Install Home Assistant Operating System
 
-{% assign haos_version = "5.9" %}
-{% assign haos_release_base_url = "https://github.com/home-assistant/operating-system/releases/download" %}
-
-{% if page.installation_type == 'odroid' %}
-  {% assign board = "ODROID" %}
-  {% assign installation_media = "eMMC module/SD card" %}
-{% elsif page.installation_type == 'raspberrypi' %}
-  {% assign board = "Raspberry Pi" %}
-  {% assign installation_media = "SD card" %}
-{% elsif page.installation_type == 'tinkerboard' %}
-  {% assign board = "ASUS Tinkerboard" %}
-  {% assign installation_media = "eMMC module/SD card" %}
-{% endif %}
+{% assign release_url = "https://github.com/home-assistant/operating-system/releases/download" %}
 
 Follow this guide if you want to get started with Home Assistant easily or if you have little to no Linux experience
 
-{% if page.installation_type == "raspberrypi" or page.installation_type == "odroid" or page.installation_type == "tinkerboard" %}
+{% if site.installation.types[page.installation_type].board %}
 {% if page.installation_type == 'raspberrypi' %}
 
 ### Suggested Hardware
@@ -32,119 +20,63 @@ We will need a few things to get started with installing Home Assistant. Links b
 
 ### Write the image to your installation media
 
-1. Attach the installation media ({{installation_media}}) to your computer
+1. Attach the installation media ({{site.installation.types[page.installation_type].installation_media}}) to your computer
 2. Download and start <a href="https://www.balena.io/etcher" target="_blank">Balena Etcher</a>
 3. Select "Flash from URL"
 ![etcher_from_url](/images/getting-started/installation/etcher1.png)
 
-4. Get the URL for your {{board}}
-{% if page.installation_type == 'raspberrypi' %}
+4. Get the URL for your {{site.installation.types[page.installation_type].board}}:
+{% if site.installation.types[page.installation_type].variants.size > 1 %}
 {% tabbed_block %}
+{% for variant in site.installation.types[page.installation_type].variants %}
 
-- title: Raspberry Pi 4 64-bit
+- title: {{ variant.name }}
   content: |
 
     ```text
-    {{haos_release_base_url}}/{{haos_version}}/hassos_rpi4-64-{{haos_version}}.img.xz
+    {{release_url}}/{{site.installation.versions.os}}/hassos_{{ variant.key }}-{{site.installation.versions.os}}.img.xz
     ```
 
-    _(32-bit is required for GPIO support)_
-
-- title: Raspberry Pi 4 32-bit
-  content: |
-
-    ```text
-    {{haos_release_base_url}}/{{haos_version}}/hassos_rpi4-{{haos_version}}.img.xz
-    ```
-
-    _(64-bit is required for 8 GB model)_
-
-- title: Raspberry Pi 3 64-bit
-  content: |
-
-    ```text
-    {{haos_release_base_url}}/{{haos_version}}/hassos_rpi3-64-{{haos_version}}.img.xz
-    ```
-
-    _(32-bit is required for GPIO support)_
-
-- title: Raspberry Pi 3 32-bit
-  content: |
-
-    ```text
-    {{haos_release_base_url}}/{{haos_version}}/hassos_rpi4-{{haos_version}}.img.xz
-    ```
-
-{% endtabbed_block %}
-{% elsif page.installation_type == 'odroid' %}
-{% tabbed_block %}
-
-- title: ODROID-N2
-  content: |
-
-    ```text
-    {{haos_release_base_url}}/{{haos_version}}/hassos_odroid-n2-{{haos_version}}.img.xz
-    ```
-
+    {% if variant.key == "odroid-n2" %}
     [Guide: Flashing Odroid-N2 using OTG-USB](/hassio/flashing_n2_otg/)
+    {% elsif variant.key == "rpi4" %}
+      _(64-bit is required for 8 GB model)_
+    {% elsif variant.key == "rpi4-64" or variant.key ==  "rpi3-64" %}
+      _(32-bit is required for GPIO support)_
+    {% endif %}
 
-- title: ODROID-C2
-  content: |
-
-    ```text
-    {{haos_release_base_url}}/{{haos_version}}/hassos_odroid-c2-{{haos_version}}.img.xz
-    ```
-
-- title: ODROID-C4
-  content: |
-
-    ```text
-    {{haos_release_base_url}}/{{haos_version}}/hassos_odroid-c4-{{haos_version}}.img.xz
-    ```
-
-- title: ODROID-XU4
-  content: |
-
-    ```text
-    {{haos_release_base_url}}/{{haos_version}}/hassos_odroid-xu4-{{haos_version}}.img.xz
-    ```
-
+{% endfor %}
 {% endtabbed_block %}
-{% elsif page.installation_type == 'tinkerboard' %}
-{% tabbed_block %}
+{% else %}
 
-- title: ASUS Tinkerboard
-  content: |
+```text
+{{release_url}}/{{site.installation.versions.os}}/hassos_{{ site.installation.types[page.installation_type].variants[0].key }}-{{site.installation.versions.os}}.img.xz
+```
 
-    ```text
-    {{haos_release_base_url}}/{{haos_version}}/hassos_tinker-{{haos_version}}.img.xz
-    ```
-
-{% endtabbed_block %}
 {% endif %}
 
 _Select and copy the URL or use the "copy" button that appear when you hover it._
 
-5. Paste the URL for your {{board}} into Balena Etcher and click "OK"
+1. Paste the URL for your {{site.installation.types[page.installation_type].board}} into Balena Etcher and click "OK"
 ![etcher_from_url_paste](/images/getting-started/installation/etcher2.png)
 6. Balena Etcher will now download the image, when that is done click "Select target"
 ![etcher_select_target](/images/getting-started/installation/etcher3.png)
-7. Select the {{installation_media}} you want to use for your {{board}}
+7. Select the {{site.installation.types[page.installation_type].installation_media}} you want to use for your {{site.installation.types[page.installation_type].board}}
 ![etcher_select_target](/images/getting-started/installation/etcher4.png)
 8. Click on "Flash!" to start writing the image
 ![etcher_select_target](/images/getting-started/installation/etcher5.png)
 9. When Balena Etcher is finished writing the image you will get this confirmation
 ![etcher_select_target](/images/getting-started/installation/etcher6.png)
 
-### Start up your {{board}}
+### Start up your {{site.installation.types[page.installation_type].board}}
 
-1. Insert the installation media ({{installation_media}}) you just created
+1. Insert the installation media ({{site.installation.types[page.installation_type].installation_media}}) you just created
 2. Attach a ethernet cable for network.
 {%- if page.installation_type == 'raspberrypi' or page.installation_type == 'tinkerboard' %}
    - [For Wi-Fi instructions see here]()
 {%- endif %}
 4. Attach a cable for power
-5. Within a few minutes you will be able to reach Home Assistant on <a href="http://homeassistant.local:8123" target="_blank">homeassistant.local:8123</a>. If you are running an older Windows version or have a stricter network configuration, you might need to access Home Assistant at <a href="http://homeassistant:8123" target="_blank">homeassistant:8123</a> or `http://X.X.X.X:8123` (replace X.X.X.X with your {{board}}’s IP address).
+5. Within a few minutes you will be able to reach Home Assistant on <a href="http://homeassistant.local:8123" target="_blank">homeassistant.local:8123</a>. If you are running an older Windows version or have a stricter network configuration, you might need to access Home Assistant at <a href="http://homeassistant:8123" target="_blank">homeassistant:8123</a> or `http://X.X.X.X:8123` (replace X.X.X.X with your {{site.installation.types[page.installation_type].board}}’s IP address).
 
 {% include getting-started/next_step.html step="onboarding" link="/getting-started/onboarding" %}
 
@@ -169,7 +101,8 @@ _Select and copy the URL or use the "copy" button that appear when you hover it.
 - [Hyper-V][vhdx] (.vhdx)
 {% endif %}
 {% endif %}
-{% if page.installation_type == "raspberrypi" or page.installation_type == "odroid" or page.installation_type == "nuc" or page.installation_type == "tinkerboard" %}
+{% if page.installation_type == "nuc" %}
+
 1. Put the SD card in your card reader.
 2. Open balenaEtcher, select the Home Assistant image and flash it to the SD card.
 3. Unmount the SD card and remove it from your card reader.
@@ -246,18 +179,10 @@ _All these can be extended if your usage calls for more resources._
 
 {% include getting-started/next_step.html step="onboarding" link="/getting-started/onboarding" %}
 {% endif %}
-[pi3-32]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_rpi3-5.8.img.xz
-[pi3-64]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_rpi3-64-5.8.img.xz
-[pi4-32]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_rpi4-5.8.img.xz
-[pi4-64]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_rpi4-64-5.8.img.xz
-[tinker]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_tinker-5.8.img.xz
-[odroid-c2]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_odroid-c2-5.8.img.xz
-[odroid-c4]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_odroid-c4-5.8.img.xz
-[odroid-n2]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_odroid-n2-5.8.img.xz
-[odroid-xu4]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_odroid-xu4-5.8.img.xz
-[intel-nuc]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_intel-nuc-5.8.img.xz
-[vmdk]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_ova-5.8.vmdk.xz
-[vhdx]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_ova-5.8.vhdx.xz
-[vdi]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_ova-5.8.vdi.xz
-[qcow2]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_ova-5.8.qcow2.xz
-[Virtual Appliance]: https://github.com/home-assistant/operating-system/releases/download/5.8/hassos_ova-5.8.ova
+
+[intel-nuc]: {{release_url}}/{{site.installation.versions.os}}/hassos_intel-nuc-{{site.installation.versions.os}}.img.xz
+[vmdk]: {{release_url}}/{{site.installation.versions.os}}/hassos_ova-{{site.installation.versions.os}}.vmdk.xz
+[vhdx]: {{release_url}}/{{site.installation.versions.os}}/hassos_ova-{{site.installation.versions.os}}.vhdx.xz
+[vdi]: {{release_url}}/{{site.installation.versions.os}}/hassos_ova-{{site.installation.versions.os}}.vdi.xz
+[qcow2]: {{release_url}}/{{site.installation.versions.os}}/hassos_ova-{{site.installation.versions.os}}.qcow2.xz
+[Virtual Appliance]: {{release_url}}/{{site.installation.versions.os}}/hassos_ova-{{site.installation.versions.os}}.ova
