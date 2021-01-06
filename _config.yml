@@ -147,6 +147,10 @@ defaults:
       path: "getting-started/installation/*"
     values:
       toc: true
+  - scope:
+      path: "hassio/*"
+    values:
+      toc: true
 
 
 # Support for files Jekyll will normally exclude
