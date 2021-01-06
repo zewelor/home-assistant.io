@@ -1,7 +1,6 @@
 ---
 title: "Common Tasks"
 description: "Common tasks for Home Assistant Container"
-toc: true
 installation: container
 ---
 {% include getting-started/common-tasks/update.markdown %}

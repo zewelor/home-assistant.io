@@ -1,7 +1,6 @@
 ---
 title: "Common Tasks"
 description: "Common tasks for Home Assistant Core"
-toc: true
 installation: core
 ---
 {% include getting-started/common-tasks/update.markdown %}

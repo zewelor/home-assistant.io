@@ -148,6 +148,10 @@ defaults:
     values:
       toc: true
   - scope:
+      path: "common-tasks/*"
+    values:
+      toc: true
+  - scope:
       path: "hassio/*"
     values:
       toc: true

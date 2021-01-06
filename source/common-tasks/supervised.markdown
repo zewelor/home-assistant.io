@@ -1,7 +1,6 @@
 ---
 title: "Common Tasks"
 description: "Common tasks for Home Assistant Supervised"
-toc: true
 installation: supervised
 ---
 {% include getting-started/common-tasks/update.markdown %}
