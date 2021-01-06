@@ -52,10 +52,10 @@ ha os update --version {{current_version}}
     source /srv/homeassistant/bin/activate
     ```
 
-3. Download and install the version you want
+3. Download and install the new version
 
     ```bash
-    pip3 install homeassistant=={{current_version}}
+    pip3 install --pre --upgrade homeassistant
     ```
 
 4. When that is complete restart the service for it to use the new files.

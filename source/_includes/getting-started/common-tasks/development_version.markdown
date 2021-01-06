@@ -36,25 +36,24 @@ ha os update --version {{current_version}}
 
 {% elsif page.installation == "core" %}
 
-Switch to the user that is running Home Assistant
+1. Switch to the user that is running Home Assistant
 
-```bash
-sudo -u homeassistant -H -s
-```
+    ```bash
+    sudo -u homeassistant -H -s
+    ```
 
-Activate the virtual environment that Home Assistant is running in
+2. Activate the virtual environment that Home Assistant is running in
 
-```bash
-source /srv/homeassistant/bin/activate
-```
+    ```bash
+    source /srv/homeassistant/bin/activate
+    ```
 
-Download and install the version you want
+3. Download and install the version you want
 
-```bash
-pip3 install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev
-```
+    ```bash
+    pip3 install --upgrade git+git://github.com/home-assistant/home-assistant.git@dev
+    ```
 
-When that is complete restart the service for it to use the new files.
-
+4. When that is complete restart the service for it to use the new files.
 
 {% endif %}
